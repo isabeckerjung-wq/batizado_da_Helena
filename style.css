@@ -1,0 +1,252 @@
+/* Reset e base */
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; padding: 0; }
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #ecd1dc; /* fundo rosa suave */
+  color: #333;
+  overflow: hidden; /* até abrir a porta */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- Overlay da porta --- */
+.porta-container {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  perspective: 1200px;
+  z-index: 9999;
+}
+
+.porta {
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1.4s ease-in-out;
+  cursor: pointer;
+}
+
+.porta img {
+  position: absolute;
+  top: 0;
+  width: 200%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.porta.esquerda img { left: 0; }
+.porta.direita img  { left: -100%; }
+
+.porta.esquerda { transform-origin: left center; }
+.porta.direita  { transform-origin: right center; }
+
+.porta.esquerda.aberta { transform: rotateY(-90deg); }
+.porta.direita.aberta  { transform: rotateY(90deg); }
+
+/* --- Conteúdo principal --- */
+.conteudo-site {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  opacity: 0; /* fica invisível até abrir a porta */
+  transition: opacity 0.8s ease;
+}
+
+/* Título com fonte cursiva */
+.titulo {
+  font-family: 'Dancing Script', cursive;
+  font-size: 42px;
+  color: #d64e85;
+  margin: 20px 0 10px;
+}
+
+/* Foto redonda */
+.foto-container {
+  display: flex;
+  justify-content: center;
+  margin: 24px 0;
+}
+.photo {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 8px solid #9c5499;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+/* Textos */
+.subtexto { font-size: 18px; color: #99478e; margin-bottom: 6px; }
+.details { color: #ce4fce; margin-bottom: 20px; }
+
+/* RSVP */
+.rsvp { max-width: 420px; margin: 0 auto; }
+.rsvp form { display: flex; flex-direction: column; gap: 10px; }
+.rsvp input, .rsvp select {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #e0a7c0;
+}
+.rsvp button {
+  background: #e94e9d;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.rsvp button:hover { opacity: 0.95; }
+
+footer { margin-top: 30px; color: #b65788; }
+
+/* Localização */
+/* Localização */
+.localizacao {
+  margin: 20px auto; /* menor espaço */
+  text-align: center;
+}
+.localizacao h2 {
+  color: #d64e85;
+  margin-bottom: 6px;
+  font-size: 20px;
+}
+.localizacao p {
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #444;
+}
+.mapa iframe {
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  height: 120px;   /* altura menor */
+  width: 60%;      /* largura menor */
+  max-width: 400px; /* limite máximo */
+}
+
+
+
+/* Galeria */
+.galeria {
+  margin: 40px auto;
+  text-align: center;
+}
+.galeria h2 {
+  color: #d64e85;
+  margin-bottom: 20px;
+}
+.fotos-galeria {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+.fotos-galeria img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
+.fotos-galeria img:hover {
+  transform: scale(1.05);
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .titulo { font-size: 28px; }
+  .photo { width: 200px; height: 200px; }
+  .rsvp input, .rsvp select { font-size: 14px; }
+  .fotos-galeria img { width: 140px; height: 140px; }
+}
+
+/* liberação de rolagem depois de abrir */
+body.unlocked { overflow: auto; }
+/* --- estilo do mapa do almoço (ajuste conforme necessário) --- */
+#local-almoco .mapa { display:flex; justify-content:center; margin-top:10px; }
+#local-almoco .mapa iframe {
+  width: 60%;
+  max-width: 420px;
+  min-width: 260px;
+  height: 140px;      /* tamanho pequeno, igual ao pedido anterior */
+  border: 0;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+/* --- botão WhatsApp flutuante --- */
+.whatsapp-button {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(180deg,#C74B8A,#9C3E70); /* rosa do site */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+  z-index: 99999;
+  text-decoration:none;
+}
+.whatsapp-button svg { display:block; }
+@media (max-width:600px) {
+  #local-almoco .mapa iframe { width: 92%; height: 200px; min-width: auto; }
+  .whatsapp-button { width: 48px; height: 48px; right: 12px; bottom: 12px; }
+}
+/* --- mapa do almoço --- */
+#local-almoco .mapa {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+#local-almoco .mapa iframe {
+  width: 60%;
+  max-width: 420px;
+  min-width: 260px;
+  height: 140px;
+  border: 0;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+/* --- botão WhatsApp --- */
+.whatsapp-button {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(180deg,#C74B8A,#9C3E70);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+  z-index: 99999;
+  text-decoration: none;
+}
+.whatsapp-button svg {
+  display: block;
+}
+@media (max-width: 600px) {
+  #local-almoco .mapa iframe {
+    width: 90%;
+    height: 200px;
+    min-width: auto;
+  }
+  .whatsapp-button {
+    width: 48px;
+    height: 48px;
+    right: 12px;
+    bottom: 12px;
+  }
+}

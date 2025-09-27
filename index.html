@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Batizado da Helena</title>
+
+  <!-- Fonte para o título -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Cole inteiro antes do </body> -->
+<style>
+  /* container fixo que não interfere em cliques */
+  #anjinhos-container {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 9999;
+  }
+
+  /* wrapper que sobe e faz fade */
+  .anjinho {
+    position: absolute;
+    will-change: transform, opacity;
+    animation: rise var(--dur, 8s) linear forwards;
+    pointer-events: none;
+    display: inline-block;
+  }
+
+  /* inner faz o balanço/rotação (isolado do translateY do wrapper) */
+  .anjinho-inner {
+    transform-origin: center;
+    display: inline-block;
+    animation: sway var(--sway, 4.5s) ease-in-out infinite;
+    pointer-events: none;
+    filter: drop-shadow(0 6px 10px rgba(0,0,0,0.12));
+  }
+
+  /* animação de subida + fade */
+  @keyframes rise {
+    0%   { transform: translateY(0); opacity: 0; }
+    8%   { opacity: 1; }
+    100% { transform: translateY(-140vh); opacity: 0; }
+  }
+
+  /* balanço horizontal + leve rotação */
+  @keyframes sway {
+    0%   { transform: translateX(0) rotate(-6deg); }
+    50%  { transform: translateX(18px) rotate(6deg); }
+    100% { transform: translateX(-12px) rotate(-6deg); }
+  }
+
+  /* garante SVG em linha sem espaços estranhos */
+  .anjinho svg { display: block; }
+</style>
+
+<!-- container (se não quiser que apareça no HTML, o script cria sozinho) -->
+<div id="anjinhos-container" aria-hidden="true"></div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const containerId = 'anjinhos-container';
+  let container = document.getElementById(containerId);
+  if (!container) {
+    container = document.createElement('div');
+    container.id = containerId;
+    document.body.appendChild(container);
+  }
+
+  const maxOnScreen = 18;      // máximo de anjinhos simultâneos
+  const spawnInterval = 800;   // ms entre aparições
+  let timer = null;
+
+  // SVG do anjinho (tamanho e cores ajustáveis)
+  function svgAnjinho(size) {
+    // usa fill branco e contorno dourado para ficar visível em fundo claro/escuro
+    return `
+      <svg width="${size}" height="${size}" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <g>
+          <ellipse cx="32" cy="6" rx="12" ry="2.6" fill="#f2d88b"/>
+          <circle cx="32" cy="16" r="${Math.round(size * 0.125)}" fill="#ffffff" stroke="#f2d88b" stroke-width="0.8"/>
+          <path d="M12 28c6-4 12-6 20-6s14 2 20 6l-6 8c-6-3-10-5-14-5s-8 2-14 5z" fill="#ffffff" opacity="0.96" stroke="#f2d88b" stroke-width="0.6"/>
+          <path d="M28 24h8v18a4 4 0 0 1-4 4 4 4 0 0 1-4-4z" fill="#ffffff" stroke="#f2d88b" stroke-width="0.6"/>
+        </g>
+      </svg>`;
+  }
+
+  function rand(min, max) { return Math.random() * (max - min) + min; }
+
+  function criarAnjinho() {
+    if (container.childElementCount >= maxOnScreen) return;
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'anjinho';
+
+    const inner = document.createElement('div');
+    inner.className = 'anjinho-inner';
+
+    const size = Math.round(rand(30, 68)); // px
+    inner.innerHTML = svgAnjinho(size);
+
+    // posição horizontal aleatória (evita sair muito das bordas)
+    wrapper.style.left = `${rand(5, 92)}vw`;
+    // começa um pouco abaixo da viewport
+    wrapper.style.top = `${100 + rand(1, 14)}vh`;
+
+    // durações aleatórias para naturalidade
+    const dur = rand(6.2, 11.2);
+    const sway = rand(3.2, 6.0);
+    wrapper.style.setProperty('--dur', `${dur}s`);
+    inner.style.setProperty('--sway', `${sway}s`);
+
+    wrapper.appendChild(inner);
+    container.appendChild(wrapper);
+
+    // remove ao final da animação
+    setTimeout(() => {
+      wrapper.remove();
+    }, dur * 1000 + 500);
+  }
+
+  function start() {
+    if (timer) return;
+    timer = setInterval(criarAnjinho, spawnInterval);
+  }
+  function stop() {
+    if (!timer) return;
+    clearInterval(timer);
+    timer = null;
+  }
+
+  // pausar quando a aba não está visível (economiza CPU)
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stop(); else start();
+  });
+
+  // inicia
+  start();
+});
+</script>
+
+</style>
+  <!-- Overlay da porta -->
+  <!-- Overlay da porta -->
+<div class="porta-container" id="porta">
+  <div class="porta esquerda" aria-hidden="true">
+    <img src="https://files.idyllic.app/files/static/233675?width=1280&optimizer=image" alt="Porta">
+  </div>
+  <div class="porta direita" aria-hidden="true">
+    <img src="https://files.idyllic.app/files/static/233675?width=1280&optimizer=image" alt="Porta">
+  </div>
+</div>
+
+
+  <!-- Conteúdo principal -->
+  <main class="conteudo-site" id="conteudo">
+    <h1 class="titulo">Batizado da Helena 🌹</h1>
+
+    <div class="foto-container">
+      <img src="images/foto-helena.jpg" alt="Helena" class="photo">
+    </div>
+
+    <p class="subtexto">Você é nosso convidado especial!</p>
+    <p class="details">🗓 04/10/2025 • ⛪ Paróquia São Luís Gonzaga • 🕥 10:30</p>
+
+    <!-- Formulário RSVP -->
+     <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulário</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #fad5e9;
+      margin: 0;
+      padding: 50px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    a button {
+      background-color: #f3a2e6; /* azul Google */
+      color: rgb(250, 4, 168);
+      padding: 15px 30px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    a button:hover {
+      background-color: #f139a5;
+    }
+  </style>
+</head>
+<body>
+  <p>Queridos parentes e amigos, convidamos e contamos com sua preseça neste momento especial. Por isso, pedimos que confirmem sua presença no batizado de Helena e no almoço após a cerimônia, clicando no link abaixo: </p>
+  
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSeVYQtdGM3cTrBfB2V5kCk9XyrSCyP3bVgquk-4Sba9O4hL5w/viewform?usp=sharing&ouid=111666067928643499247" target="_blank">
+    <button>Confirme sua presença!</button>
+  </a>
+  
+    <!-- Localização da Igreja -->
+    <section class="localizacao">
+      <h2>📍 Local da cerimônia</h2>
+      <p>Paróquia São Luís Gonzaga<br>R. Cônego José Leão Hartman, 82 - Centro, Canoas - RS, 92310-400</p>
+      <div class="mapa">
+        <iframe
+         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3458.121952878411!2d-51.183935899999994!3d-29.9183911!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9519652e18adb40d%3A0x9e9cc459c3135727!2zUGFyw7NxdWlhIFPDo28gTHXDrXMgR29uemFnYQ!5e0!3m2!1spt-BR!2sbr!4v1758940594132!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </section>
+
+    <!-- Local do Almoço -->
+    <section class="localizacao" id="local-almoco">
+      <h2>🍽️ Local do Almoço</h2>
+      <p>Pizzaria Casseroles<br>
+ R. Siqueira Campos, 382 - Centro, Canoas - RS, 92010-230</p>
+      <div class="mapa">
+        <iframe
+          
+   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3458.3096628766734!2d-51.1816531!3d-29.912986099999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95197aa99d2e4243%3A0x724e1cb73861409f!2sCasseroles%20pizzaria%20e%20galeteria!5e0!3m2!1spt-BR!2sbr!4v1758940327022!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>" 
+  
+
+
+
+        </iframe>
+      </div>
+    </section>
+
+    <!-- Galeria -->
+    <section class="galeria">
+      <h2>📸 Galeria</h2>
+      <div class="fotos-galeria">
+        <img src="images/foto-helena.jpg" alt="Helena 1">
+        <img src="images/foto-helena2.jpg" alt="Helena 2">
+        <img src="images/foto-helena3.jpg" alt="Helena 3">
+      </div>
+    </section>
+
+    <footer>💖 Feito com amor para a Helena</footer>
+  </main>
+
+  <!-- Áudio da porta -->
+  <audio id="openAudio" src="audio/porta.mp3" preload="auto"></audio>
+
+  <!-- JS -->
+  <script src="script.js"></script>
+
+  <!-- BOTÃO FLUTUANTE DO WHATSAPP -->
+  <a class="whatsapp-button" href="https://wa.me/5551996869873" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+      <path fill="white" d="M20.52 3.48A11.88 11.88 0 0012 .5 11.9 11.9 0 003.48 3.48 11.9 11.9 0 00.5 12c0 2.1.55 4.15 1.6 5.95L.5 23.5l5.77-1.53A11.88 11.88 0 0012 23.5c3.18 0 6.14-1.24 8.52-3.48A11.88 11.88 0 0023.5 12c0-3.18-1.24-6.14-3-8.52zM12 21.5a9.5 9.5 0 01-4.8-1.3l-.34-.2-3.4.9.9-3.33-.2-.35A9.5 9.5 0 012.5 12 9.5 9.5 0 0112 2.5 9.5 9.5 0 0121.5 12 9.5 9.5 0 0112 21.5z"/>
+      <path fill="white" d="M17.4 14.1c-.25-.12-1.48-.73-1.71-.82-.23-.1-.4-.12-.57.12-.17.25-.66.82-.8.99-.15.16-.3.18-.55.06-.25-.12-1.05-.39-2-1.22-.74-.66-1.24-1.48-1.38-1.73-.14-.25-.01-.38.11-.5.11-.11.25-.3.37-.45.12-.15.16-.25.25-.42.09-.17.05-.31-.02-.43-.07-.12-.57-1.37-.78-1.88-.2-.49-.4-.43-.57-.44-.15 0-.32-.01-.49-.01-.17 0-.45.06-.69.31-.24.25-.91.89-.91 2.17 0 1.27.93 2.5 1.06 2.68.12.18 1.82 2.86 4.41 3.9 1.09.44 1.94.7 2.61.9.96.27 1.83.23 2.52.14.77-.1 1.48-.6 1.69-1.18.2-.58.2-1.08.14-1.18-.06-.1-.23-.16-.48-.28z"/>
+    </svg>
+  </a>
+</body>
+</html>
